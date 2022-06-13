@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html
+  lang="zh"
+  itemscope
+  itemtype="http://schema.org/Blog"
+>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+    <link rel="me" href="https://twitter.com/TheOwenYoung" />
+    <link rel="me" href="https://twitter.com/OwenYoungZh" />
+    <link rel="me" href="https://github.com/theowenyoung" />
+    <link rel="me" href="mailto:owen@owenyoung.com" />
+    <link
+  rel="webmention"
+  href="https://webmention.io/www.owenyoung.com/webmention"
+/>
+    <link rel="stylesheet" href="https://www.owenyoung.com/site/styles/site.css?h=4dee2ba4028af76706f18ae61599cfdfcf7bdaf940255d26327f246d0fab8644">
+    <title>使用Actionsflow在Github上免费部署Rsshub - Owen的博客</title>
+    <meta
+      name="description"
+      itemprop="about"
+      content=" Rsshub是一个很棒的工具，把很多知名或不知名的网页数据通通统一为RSS 格式，堪称中文互联网的 W3C. 但是官方推荐的部署方式是Docker 部署，对于大多数轻量使用的用户来说有点重，所以这里介绍一种免费，轻量，按需使用的部署方式，利用Actionsflow部署在 GitHub 的 Actions 上。Actionsflow是一个基于 Github Actions 上的 IFTTT&#x2F;Zapier 的开源替代，使用 Github Actions 的配置格式来配置你需要的工作流, 更多关于 Actionsflow 的使用可以看我的另一篇文章介绍,或者官方文档
+  "
+    />
+    <meta
+      name="keywords"
+      itemprop="keywords"
+      content="注意力, 读书, 工具分享, 纯文本, 英语学习"
+    />
+    <meta name="author" itemprop="author" content="Owen Young" />
+    <meta itemprop="headline" content="使用Actionsflow在Github上免费部署Rsshub - Owen的博客" />
+    <meta itemprop="copyrightYear" content="2022" />
+    <link rel="icon" href="https://www.owenyoung.com/site/images/favicon-32x32.png?h=ca02fcaedf5905bad24cad048d2c0ead87ee7df6ff599938026255c876b644a6"
+    type="image/x-icon"> <link rel="apple-touch-icon" sizes="57x57" href="https://www.owenyoung.com/site/images/apple-icon-57x57.png?h=4f2caa895f8778fc9c8afc6173d2bf4711c82ba1db300d9378a8f5e90f75c6e4"> <link
+    rel="apple-touch-icon" sizes="60x60" href="https://www.owenyoung.com/site/images/apple-icon-60x60.png?h=7eab63f6f6ad0d3f7c4858613eb6d5c86cb0eff7d52a04208a6cda526c94b65b"> <link
+    rel="apple-touch-icon" sizes="72x72" href="https://www.owenyoung.com/site/images/apple-icon-72x72.png?h=2deb7fdcbb705196d1e77a75bd4952aba52bfbbb176af203a790a7ab7b7b0c64"> <link
+    rel="apple-touch-icon" sizes="76x76" href="https://www.owenyoung.com/site/images/apple-icon-76x76.png?h=f7399cc2fb4a26b40dba3ef47377b78d10b9b71aa6650719bb0ca6225d82350a"> <link
+    rel="apple-touch-icon" sizes="114x114" href="https://www.owenyoung.com/site/images/apple-icon-114x114.png?h=ff5d19a568c1a6f16fd7691e977f9bc0a93a67e549025140e907e0437ac0a020"> <link
+    rel="apple-touch-icon" sizes="120x120" href="https://www.owenyoung.com/site/images/apple-icon-120x120.png?h=f7b7916df875e4ba50c8ba87794d6932b436b4760d530c740ce989c794567c50"> <link
+    rel="apple-touch-icon" sizes="144x144" href="https://www.owenyoung.com/site/images/apple-icon-144x144.png?h=3f1d58f726fa497889b5fbb0d6f3ed6035b1bf7a566d22483a2d64c26dd23363"> <link
+    rel="apple-touch-icon" sizes="152x152" href="https://www.owenyoung.com/site/images/apple-icon-152x152.png?h=9f5a1ed5380948afb2a65a11af385bac584e3c38eb99c41c4b008ca9ccb71d70"> <link
+    rel="apple-touch-icon" sizes="180x180" href="https://www.owenyoung.com/site/images/apple-icon-180x180.png?h=cdb4da969c5ed2fe8e358cd6fff1bd76006815c6bfb8a10dfac056de10db8fb1"> <link rel="icon"
+    type="image/png" sizes="192x192" href="https://www.owenyoung.com/site/images/android-icon-192x192.png?h=552ba48807682a3e49d1f2b34dfe273b166139cb056b49d96425117987c046ac"> <link rel="icon"
+    type="image/png" sizes="32x32" href="https://www.owenyoung.com/site/images/favicon-32x32.png?h=ca02fcaedf5905bad24cad048d2c0ead87ee7df6ff599938026255c876b644a6"> <link rel="icon"
+    type="image/png" sizes="96x96" href="https://www.owenyoung.com/site/images/favicon-96x96.png?h=c66003270d7feb6d9bac4bff4c9a3a6d1b9c06c0ea617703f2e962dfaa8b7f4f"> <link rel="icon"
+    type="image/png" sizes="16x16" href="https://www.owenyoung.com/site/images/favicon-16x16.png?h=781fb877b71ebad12e3c244f99d49e304999806e16b5d300aad21c5cf745eaaa"> <link rel="manifest"
+    href="https://www.owenyoung.com/site/images/manifest.json">
+    <meta
+      name="msapplication-TileColor"
+      content="#EA4C89"
+    />
+    <meta name="msapplication-TileImage" content="https://www.owenyoung.com/site/images/ms-icon-144x144.png?h=3f1d58f726fa497889b5fbb0d6f3ed6035b1bf7a566d22483a2d64c26dd23363">
+    <meta name="theme-color" content="#EA4C89" />
+
+    <meta
+      property="og:title"
+      content="使用Actionsflow在Github上免费部署Rsshub - Owen的博客"
+    />
+    <meta
+      property="og:description"
+      content=" Rsshub是一个很棒的工具，把很多知名或不知名的网页数据通通统一为RSS 格式，堪称中文互联网的 W3C. 但是官方推荐的部署方式是Docker 部署，对于大多数轻量使用的用户来说有点重，所以这里介绍一种免费，轻量，按需使用的部署方式，利用Actionsflow部署在 GitHub 的 Actions 上。Actionsflow是一个基于 Github Actions 上的 IFTTT&#x2F;Zapier 的开源替代，使用 Github Actions 的配置格式来配置你需要的工作流, 更多关于 Actionsflow 的使用可以看我的另一篇文章介绍,或者官方文档
+  "
+    />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;www.owenyoung.com&#x2F;blog&#x2F;deploy-rsshub-with-actionsflow&#x2F;"
+    />
+    <meta property="og:site_name" content="Owen的博客" />
+    
+    <meta
+      property="og:image"
+      content=""
+    />
+    
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:site" content="TheOwenYoung" />
+    <meta name="twitter:creator" content="TheOwenYoung" />
+    <meta
+      name="twitter:image:alt"
+      content="Owen的博客"
+    />
+    
+     <link rel="alternate"
+type="application/atom+xml" title="Owen的博客 - RSS" href="https://www.owenyoung.com/atom.xml">
+
+    
+    <meta name="title" content="使用Actionsflow在Github上免费部署Rsshub">
+<style>
+  .sidebar{
+    display: none;
+  }
+  @media (min-width: 67.5rem) {
+    .sidebar{
+      display: block;
+    }
+  }
+</style>
+
+  </head>
+
+  <body>
+    <section id="top"></section>
+    <section id="root" >
+      <nav class="navbar">
+        <div class="navbar-inner justify-between">
+          <div>
+            <a class="brand" href="https://www.owenyoung.com/">
+              <img class="icon" alt="Owen" src="https://www.owenyoung.com/site/images/favicon-96x96.png?h=c66003270d7feb6d9bac4bff4c9a3a6d1b9c06c0ea617703f2e962dfaa8b7f4f"></img>
+            </a> 
+          </div>
+          <div>
+            
+            <ul class="flex menu list-none items-center justify-center">
+              <li><a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline " title="English Site" href="/en/">
+                <span class="text-sm">EN</span>
+               </a></li>
+              <li>
+               <a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline muted" title="中文站点" class="only-show-small" href="/">
+                 <span class="text-sm">中</span>
+                </a>
+              </li>
+             <div class="nav-divider"></div>
+             <li><a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline" title="Back to Top" href="#top">
+               <span class=""> &#8593;</span>
+              </a></li>
+             <li>
+              <a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline" title="Go to Bottom" class="only-show-small" href="#bottom">
+                <span class=""> &#8595;</span>
+               </a>
+             </li>
+            
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <main class="body-zone flex justify-between flex-1">
+          <section class="main flex-1">
+            <div class="main-inner px">
+              
+<div class="h-entry hentry">
+  <header id="overview">
+  
+    <div class="pt">
+      <span>&gt;&gt;</span>
+      <a href="https://www.owenyoung.com/">首页</a>
+      
+      <span class="divider">/</span>
+      <a rel="category tag" class="p-category category" href="https://www.owenyoung.com/categories/random/">Random</a>
+      <span class="divider">/</span>
+      
+      <a href="https://www.owenyoung.com/tags/github-actions/">Github Actions</a>,
+      
+      <a href="https://www.owenyoung.com/tags/actionsflow/">Actionsflow</a>
+      
+      
+      
+      </div>
+  
+    <div>
+      <h1 class="p-name entry-title" style="font-size:2rem;">使用Actionsflow在Github上免费部署Rsshub</h1>
+      <div class="display-none p-author h-card vcard">
+        <img class="u-photo icon" alt="Owen" src="https://www.owenyoung.com/site/images/favicon-96x96.png?h=c66003270d7feb6d9bac4bff4c9a3a6d1b9c06c0ea617703f2e962dfaa8b7f4f" />
+        <a class="p-name u-url url"
+        href="https:&#x2F;&#x2F;www.owenyoung.com" 
+       >Owen Young</a> 
+       <p class="p-note">Web developer, I like reading and explore the internet, so I have collected queit a few notes in my blog.</p>
+      </div>
+      <div class="pt muted">
+        <div>
+          发布于: <time class="dt-published published" datetime="2021-02-03">2021-02-03</time>, 最后更新时间: <time class="dt-updated updated" datetime="2022-03-10">2022-03-10</time>, 阅读时间: 4 min</div>
+    </div>
+
+    </div>
+    
+    
+  </header>
+  <section>
+  
+    <section class="main">
+      <div class="display-none p-summary">
+        <p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/DIYgod/RSSHub">Rsshub</a>是一个很棒的工具，把很多知名或不知名的网页数据通通统一为<a rel="noopener nofollow noreferrer" target="_blank" href="https://en.wikipedia.org/wiki/RSS">RSS 格式</a>，堪称中文互联网的 W3C. 但是官方推荐的部署方式是<a rel="noopener nofollow noreferrer" target="_blank" href="https://docs.rsshub.app/install/#docker-compose-bu-shu">Docker 部署</a>，对于大多数轻量使用的用户来说有点重，所以这里介绍一种免费，轻量，按需使用的部署方式，利用<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/actionsflow/actionsflow">Actionsflow</a>部署在 GitHub 的 <a rel="noopener nofollow noreferrer" target="_blank" href="https://docs.github.com/en/actions">Actions</a> 上。</p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/actionsflow/actionsflow">Actionsflow</a>是一个基于 Github Actions 上的 IFTTT/Zapier 的开源替代，使用 <a rel="noopener nofollow noreferrer" target="_blank" href="https://actionsflow.github.io/docs/workflow/">Github Actions 的配置格式</a>来配置你需要的工作流, 更多关于 Actionsflow 的使用可以看我的<a rel="noopener nofollow noreferrer" target="_blank" href="https://blog.owenyoung.com/zh/posts/actionsflow/">另一篇文章介绍</a>,或者<a rel="noopener nofollow noreferrer" target="_blank" href="https://actionsflow.github.io/docs/">官方文档</a></p>
+
+      </div>
+      <a class="display-none u-url" href="https:&#x2F;&#x2F;www.owenyoung.com&#x2F;blog&#x2F;deploy-rsshub-with-actionsflow&#x2F;">Permanent Link</a>
+      
+      <section id="start"></section>
+      <article class="e-content entry-content">
+        <p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/DIYgod/RSSHub">Rsshub</a>是一个很棒的工具，把很多知名或不知名的网页数据通通统一为<a rel="noopener nofollow noreferrer" target="_blank" href="https://en.wikipedia.org/wiki/RSS">RSS 格式</a>，堪称中文互联网的 W3C. 但是官方推荐的部署方式是<a rel="noopener nofollow noreferrer" target="_blank" href="https://docs.rsshub.app/install/#docker-compose-bu-shu">Docker 部署</a>，对于大多数轻量使用的用户来说有点重，所以这里介绍一种免费，轻量，按需使用的部署方式，利用<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/actionsflow/actionsflow">Actionsflow</a>部署在 GitHub 的 <a rel="noopener nofollow noreferrer" target="_blank" href="https://docs.github.com/en/actions">Actions</a> 上。</p>
+<p><a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/actionsflow/actionsflow">Actionsflow</a>是一个基于 Github Actions 上的 IFTTT/Zapier 的开源替代，使用 <a rel="noopener nofollow noreferrer" target="_blank" href="https://actionsflow.github.io/docs/workflow/">Github Actions 的配置格式</a>来配置你需要的工作流, 更多关于 Actionsflow 的使用可以看我的<a rel="noopener nofollow noreferrer" target="_blank" href="https://blog.owenyoung.com/zh/posts/actionsflow/">另一篇文章介绍</a>,或者<a rel="noopener nofollow noreferrer" target="_blank" href="https://actionsflow.github.io/docs/">官方文档</a></p>
+<span id="continue-reading"></span>
+<p>比如我自己在用的一个工作流就是监控豆瓣车组的一些我需要的关键词，如果有提到关键词的帖子，那么发送一个 telegram 消息给我，配置如下：</p>
+<pre data-lang="yaml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#d08770;">on</span><span>:
+</span><span>  </span><span style="color:#bf616a;">rsshub</span><span>:
+</span><span>    </span><span style="color:#bf616a;">path</span><span>:
+</span><span>      - </span><span style="color:#bf616a;">path</span><span>: </span><span style="color:#a3be8c;">/douban/group/669481
+</span><span>        </span><span style="color:#bf616a;">query</span><span>:
+</span><span>          </span><span style="color:#bf616a;">filter_case_sensitive</span><span>: </span><span style="color:#d08770;">false
+</span><span>          </span><span style="color:#bf616a;">filter_title</span><span>: </span><span style="color:#a3be8c;">罐头|狗粮|爱肯拿|渴望|姐妹们快|牛奶|牛肉|羊肉|来伊份岩烧|来伊份面包|烤箱|生鲜|螺蛳粉|米诺|果酸|杏仁酸|鸡蛋|大米|薅|cr海盐|洗头膏|崔娅蓬松|洗鼻|橙
+</span><span>          </span><span style="color:#bf616a;">filterout_title</span><span>: </span><span style="color:#a3be8c;">求|转|求购|交流|已购|专楼|蒙牛|伊利|讨论|华为|停车|代拍|完|分装|意向|拼单|删|一元
+</span><span style="color:#bf616a;">jobs</span><span>:
+</span><span>  </span><span style="color:#bf616a;">ifttt</span><span>:
+</span><span>    </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#a3be8c;">Make a Request to telegram
+</span><span>    </span><span style="color:#bf616a;">runs-on</span><span>: </span><span style="color:#a3be8c;">ubuntu-latest
+</span><span>    </span><span style="color:#bf616a;">steps</span><span>:
+</span><span>      - </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#a3be8c;">Send a telegram message
+</span><span>        </span><span style="color:#bf616a;">uses</span><span>: </span><span style="color:#a3be8c;">appleboy/telegram-action@v0.1.0
+</span><span>        </span><span style="color:#bf616a;">with</span><span>:
+</span><span>          </span><span style="color:#bf616a;">to</span><span>: </span><span style="color:#a3be8c;">${{ secrets.TELEGRAM_TO }}
+</span><span>          </span><span style="color:#bf616a;">token</span><span>: </span><span style="color:#a3be8c;">${{ secrets.TELEGRAM_TOKEN }}
+</span><span>          </span><span style="color:#bf616a;">message</span><span>: </span><span style="color:#b48ead;">|
+</span><span style="color:#a3be8c;">            &lt;b&gt;${{ on.rsshub.outputs.title}}&lt;/b&gt;
+</span><span style="color:#a3be8c;">            &lt;a href=&quot;${{on.rsshub.outputs.link}}&quot;&gt;${{on.rsshub.outputs.description}}&lt;/a&gt;
+</span><span>          </span><span style="color:#bf616a;">format</span><span>: </span><span style="color:#a3be8c;">html
+</span><span>          </span><span style="color:#bf616a;">disable_web_page_preview</span><span>: </span><span style="color:#d08770;">true
+</span></code></pre>
+<blockquote>
+<p>配置来自<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/theowenyoung/actionsflow-workflow/blob/main/workflows/rsshub.yml">这里</a></p>
+</blockquote>
+<p>接下来介绍下如何部署：）</p>
+<blockquote>
+<p>因为 rsshub 这个 trigger 没有内置在 Actionsflow 里，所以按照官方的教程初始化之后，需要主动安装下<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/theowenyoung/actionsflow-trigger-rsshub">@actionsflow/trigger-rsshub</a>这个 trigger</p>
+</blockquote>
+<ol>
+<li>
+<p>使用这个<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/actionsflow/actionsflow-workflow-default/generate">链接</a>用 Actionsflow 的默认模板创建一个新的 GitHub 项目，一个典型的 Actionsflow 项目长这样：</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">├──</span><span> .github
+</span><span style="color:#bf616a;">│</span><span>   └── workflows
+</span><span style="color:#bf616a;">│</span><span>       └── actionsflow.yml
+</span><span style="color:#bf616a;">├──</span><span> .gitignore
+</span><span style="color:#bf616a;">├──</span><span> README.md
+</span><span style="color:#bf616a;">└──</span><span> workflows
+</span><span style="color:#bf616a;">│</span><span>   └── rss.yml
+</span><span style="color:#bf616a;">│</span><span>   └── webhook.yml
+</span><span style="color:#bf616a;">└──</span><span> package.json
+</span></code></pre>
+</li>
+<li>
+<p>clone 你刚创建的项目到本地</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">git</span><span> clone git@github.com:&lt;your-github-username&gt;/&lt;repo-name&gt;
+</span></code></pre>
+</li>
+<li>
+<p>在本地编辑 <code>.github/workflows/actionsflow.yml</code> 文件，取消<code>schedule</code>的注释</p>
+</li>
+<li>
+<p>安装<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/theowenyoung/actionsflow-trigger-rsshub">@actionsflow/trigger-rsshub</a></p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">npm</span><span> i @actionsflow/trigger-rsshub
+</span></code></pre>
+</li>
+<li>
+<p>在<code>workflows/</code>文件夹创建你自己的 workflow 文件</p>
+<blockquote>
+<p>workflow 的写法和 rsshub trigger 的用法清参考官方文档<a rel="noopener nofollow noreferrer" target="_blank" href="https://actionsflow.github.io/docs/workflow/">Actionsflow Workflow Syntax</a>, <a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/theowenyoung/actionsflow-trigger-rsshub">Actionsflow rsshub trigger</a></p>
+</blockquote>
+<blockquote>
+<p>可以参考<a rel="noopener nofollow noreferrer" target="_blank" href="https://actionsflow.github.io/docs/actions/">这里</a>列出的 常用 Github Action，以及这个<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/actionsflow/awesome-actionsflow">Actionsflow 的 Awesome 项目</a></p>
+</blockquote>
+<p>示例(<code>/workflow/rsshub.yml</code>)：</p>
+<pre data-lang="yaml" style="background-color:#2b303b;color:#c0c5ce;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="color:#d08770;">on</span><span>:
+</span><span>  </span><span style="color:#bf616a;">rsshub</span><span>:
+</span><span>    </span><span style="color:#bf616a;">path</span><span>: </span><span style="color:#a3be8c;">/smzdm/keyword/女装
+</span><span style="color:#bf616a;">jobs</span><span>:
+</span><span>  </span><span style="color:#bf616a;">print</span><span>:
+</span><span>    </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#a3be8c;">Print
+</span><span>    </span><span style="color:#bf616a;">runs-on</span><span>: </span><span style="color:#a3be8c;">ubuntu-latest
+</span><span>    </span><span style="color:#bf616a;">steps</span><span>:
+</span><span>      - </span><span style="color:#bf616a;">name</span><span>: </span><span style="color:#a3be8c;">Print Outputs
+</span><span>        </span><span style="color:#bf616a;">env</span><span>:
+</span><span>          </span><span style="color:#bf616a;">title</span><span>: </span><span style="color:#a3be8c;">${{on.rsshub.outputs.title}}
+</span><span>          </span><span style="color:#bf616a;">description</span><span>: </span><span style="color:#a3be8c;">${{on.rsshub.outputs.description}}
+</span><span>          </span><span style="color:#bf616a;">link</span><span>: </span><span style="color:#a3be8c;">${{on.rsshub.outputs.link}}
+</span><span>        </span><span style="color:#bf616a;">run</span><span>: </span><span style="color:#b48ead;">|
+</span><span style="color:#a3be8c;">          echo title: $title
+</span><span style="color:#a3be8c;">          echo description: $description
+</span><span style="color:#a3be8c;">          echo link: $link
+</span></code></pre>
+</li>
+<li>
+<p>保存并提交你的文件到 Github</p>
+</li>
+</ol>
+<blockquote>
+<p>如果你想本地测试的话，需要先安装<a rel="noopener nofollow noreferrer" target="_blank" href="https://docs.docker.com/get-docker/">Docker</a>, 并运行 <code>npm run start</code></p>
+</blockquote>
+
+      </article>
+      
+      <section>
+        <hr>
+        <a class="muted" href="https://github.com/theowenyoung/blog/tree/main/content/blog/deploy-rsshub-with-actionsflow.md">📝 帮我完善这个页面？</a>
+      </section>
+      
+  
+      
+      
+      
+      <section class="p-comments h-feed">
+      <hr>
+      <h2>回应区<a href="#response" id="response" class="zola-anchor" >🔗</a></h2>
+      <form class="webmention-form" action="https://webmention.io/www.owenyoung.com/webmention" method="post">
+        
+        <div id="email-comment" class="muted text-sm">
+          
+          <p>
+            你有对这篇文章写<a href="https://indieweb.org/responses">回应</a>吗? 你可以在这里提交你的文章网址，或者你也可以通过<a href="mailto:owen@owenyoung.com?subject=%E5%9B%9E%E5%A4%8D%EF%BC%9A%E4%BD%BF%E7%94%A8Actionsflow%E5%9C%A8Github%E4%B8%8A%E5%85%8D%E8%B4%B9%E9%83%A8%E7%BD%B2Rsshub">邮件  </a><code>owen@owenyoung.com</code> 和我讨论。
+          </p>
+          
+        
+        </div>
+        
+        <div class="flex items-center flex-wrap pb">
+          <input type="url" name="source" class="flex-3 mr-sm w-full py-sm px-sm">
+          <input type="submit" class="px py-sm" value="Send Webmention">
+        </div>
+        <div class="status hidden">
+          <div class="ui message"></div>
+        </div>
+        <input type="hidden" name="target" value="https:&#x2F;&#x2F;www.owenyoung.com&#x2F;blog&#x2F;deploy-rsshub-with-actionsflow&#x2F;">
+      </form>
+        
+      </section>
+      
+      
+
+    </section>
+    
+   
+  </section>
+</div>
+   
+
+              </div>
+          </section>
+
+          
+<aside class="sidebar px no-toc">
+
+</aside>
+
+
+
+      </main>
+      </section>
+    <section id="bottom"></section>
+  </body>
+</html>

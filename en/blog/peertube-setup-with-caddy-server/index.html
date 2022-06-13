@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  itemscope
+  itemtype="http://schema.org/Blog"
+>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+    <link rel="me" href="https://twitter.com/TheOwenYoung" />
+    <link rel="me" href="https://twitter.com/OwenYoungZh" />
+    <link rel="me" href="https://github.com/theowenyoung" />
+    <link rel="me" href="mailto:owen@owenyoung.com" />
+    <link
+  rel="webmention"
+  href="https://webmention.io/www.owenyoung.com/webmention"
+/>
+    <link rel="stylesheet" href="https://www.owenyoung.com/site/styles/site.css?h=4dee2ba4028af76706f18ae61599cfdfcf7bdaf940255d26327f246d0fab8644">
+    <title>Peertube Setup with Caddy Server - Owen Young&#x27;s Blog</title>
+    <meta
+      name="description"
+      itemprop="about"
+      content=" Peertube is an activityPub-federated video streaming platform using P2P directly in your web browser.
+  "
+    />
+    <meta
+      name="keywords"
+      itemprop="keywords"
+      content="Focus, Reading, Tool sharing, Plain text, English learning"
+    />
+    <meta name="author" itemprop="author" content="Owen Young" />
+    <meta itemprop="headline" content="Peertube Setup with Caddy Server - Owen Young&#x27;s Blog" />
+    <meta itemprop="copyrightYear" content="2022" />
+    <link rel="icon" href="https://www.owenyoung.com/site/images/favicon-32x32.png?h=ca02fcaedf5905bad24cad048d2c0ead87ee7df6ff599938026255c876b644a6"
+    type="image/x-icon"> <link rel="apple-touch-icon" sizes="57x57" href="https://www.owenyoung.com/site/images/apple-icon-57x57.png?h=4f2caa895f8778fc9c8afc6173d2bf4711c82ba1db300d9378a8f5e90f75c6e4"> <link
+    rel="apple-touch-icon" sizes="60x60" href="https://www.owenyoung.com/site/images/apple-icon-60x60.png?h=7eab63f6f6ad0d3f7c4858613eb6d5c86cb0eff7d52a04208a6cda526c94b65b"> <link
+    rel="apple-touch-icon" sizes="72x72" href="https://www.owenyoung.com/site/images/apple-icon-72x72.png?h=2deb7fdcbb705196d1e77a75bd4952aba52bfbbb176af203a790a7ab7b7b0c64"> <link
+    rel="apple-touch-icon" sizes="76x76" href="https://www.owenyoung.com/site/images/apple-icon-76x76.png?h=f7399cc2fb4a26b40dba3ef47377b78d10b9b71aa6650719bb0ca6225d82350a"> <link
+    rel="apple-touch-icon" sizes="114x114" href="https://www.owenyoung.com/site/images/apple-icon-114x114.png?h=ff5d19a568c1a6f16fd7691e977f9bc0a93a67e549025140e907e0437ac0a020"> <link
+    rel="apple-touch-icon" sizes="120x120" href="https://www.owenyoung.com/site/images/apple-icon-120x120.png?h=f7b7916df875e4ba50c8ba87794d6932b436b4760d530c740ce989c794567c50"> <link
+    rel="apple-touch-icon" sizes="144x144" href="https://www.owenyoung.com/site/images/apple-icon-144x144.png?h=3f1d58f726fa497889b5fbb0d6f3ed6035b1bf7a566d22483a2d64c26dd23363"> <link
+    rel="apple-touch-icon" sizes="152x152" href="https://www.owenyoung.com/site/images/apple-icon-152x152.png?h=9f5a1ed5380948afb2a65a11af385bac584e3c38eb99c41c4b008ca9ccb71d70"> <link
+    rel="apple-touch-icon" sizes="180x180" href="https://www.owenyoung.com/site/images/apple-icon-180x180.png?h=cdb4da969c5ed2fe8e358cd6fff1bd76006815c6bfb8a10dfac056de10db8fb1"> <link rel="icon"
+    type="image/png" sizes="192x192" href="https://www.owenyoung.com/site/images/android-icon-192x192.png?h=552ba48807682a3e49d1f2b34dfe273b166139cb056b49d96425117987c046ac"> <link rel="icon"
+    type="image/png" sizes="32x32" href="https://www.owenyoung.com/site/images/favicon-32x32.png?h=ca02fcaedf5905bad24cad048d2c0ead87ee7df6ff599938026255c876b644a6"> <link rel="icon"
+    type="image/png" sizes="96x96" href="https://www.owenyoung.com/site/images/favicon-96x96.png?h=c66003270d7feb6d9bac4bff4c9a3a6d1b9c06c0ea617703f2e962dfaa8b7f4f"> <link rel="icon"
+    type="image/png" sizes="16x16" href="https://www.owenyoung.com/site/images/favicon-16x16.png?h=781fb877b71ebad12e3c244f99d49e304999806e16b5d300aad21c5cf745eaaa"> <link rel="manifest"
+    href="https://www.owenyoung.com/site/images/manifest.json">
+    <meta
+      name="msapplication-TileColor"
+      content="#EA4C89"
+    />
+    <meta name="msapplication-TileImage" content="https://www.owenyoung.com/site/images/ms-icon-144x144.png?h=3f1d58f726fa497889b5fbb0d6f3ed6035b1bf7a566d22483a2d64c26dd23363">
+    <meta name="theme-color" content="#EA4C89" />
+
+    <meta
+      property="og:title"
+      content="Peertube Setup with Caddy Server - Owen Young&#x27;s Blog"
+    />
+    <meta
+      property="og:description"
+      content=" Peertube is an activityPub-federated video streaming platform using P2P directly in your web browser.
+  "
+    />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;www.owenyoung.com&#x2F;en&#x2F;blog&#x2F;peertube-setup-with-caddy-server&#x2F;"
+    />
+    <meta property="og:site_name" content="Owen Young&#x27;s Blog" />
+    
+    <meta
+      property="og:image"
+      content=""
+    />
+    
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:site" content="TheOwenYoung" />
+    <meta name="twitter:creator" content="TheOwenYoung" />
+    <meta
+      name="twitter:image:alt"
+      content="Owen Young&#x27;s Blog"
+    />
+    
+     <link rel="alternate"
+type="application/atom+xml" title="Owen Young&#x27;s Blog - RSS" href="https://www.owenyoung.com/atom.xml">
+
+    
+    <meta name="title" content="Peertube Setup with Caddy Server">
+<style>
+  .sidebar{
+    display: none;
+  }
+  @media (min-width: 67.5rem) {
+    .sidebar{
+      display: block;
+    }
+  }
+</style>
+
+  </head>
+
+  <body>
+    <section id="top"></section>
+    <section id="root" >
+      <nav class="navbar">
+        <div class="navbar-inner justify-between">
+          <div>
+            <a class="brand" href="https://www.owenyoung.com/en/">
+              <img class="icon" alt="Owen" src="https://www.owenyoung.com/site/images/favicon-96x96.png?h=c66003270d7feb6d9bac4bff4c9a3a6d1b9c06c0ea617703f2e962dfaa8b7f4f"></img>
+            </a> 
+          </div>
+          <div>
+            
+            <ul class="flex menu list-none items-center justify-center">
+              <li><a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline muted" title="English Site" href="/en/">
+                <span class="text-sm">EN</span>
+               </a></li>
+              <li>
+               <a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline " title="中文站点" class="only-show-small" href="/">
+                 <span class="text-sm">中</span>
+                </a>
+              </li>
+             <div class="nav-divider"></div>
+             <li><a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline" title="Back to Top" href="#top">
+               <span class=""> &#8593;</span>
+              </a></li>
+             <li>
+              <a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline" title="Go to Bottom" class="only-show-small" href="#bottom">
+                <span class=""> &#8595;</span>
+               </a>
+             </li>
+            
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <main class="body-zone flex justify-between flex-1">
+          <section class="main flex-1">
+            <div class="main-inner px">
+              
+<div class="h-entry hentry">
+  <header id="overview">
+  
+    <div class="pt">
+      <span>&gt;&gt;</span>
+      <a href="https://www.owenyoung.com/en/">Home</a>
+      
+      <span class="divider">/</span>
+      <a rel="category tag" class="p-category category" href="https://www.owenyoung.com/en/categories/dev/">Dev</a>
+      <span class="divider">/</span>
+      
+      <a href="https://www.owenyoung.com/en/tags/self-hosted/">Self-hosted</a>
+      
+      
+      
+      </div>
+  
+    <div>
+      <h1 class="p-name entry-title" style="font-size:2rem;">Peertube Setup with Caddy Server</h1>
+      <div class="display-none p-author h-card vcard">
+        <img class="u-photo icon" alt="Owen" src="https://www.owenyoung.com/site/images/favicon-96x96.png?h=c66003270d7feb6d9bac4bff4c9a3a6d1b9c06c0ea617703f2e962dfaa8b7f4f" />
+        <a class="p-name u-url url"
+        href="https:&#x2F;&#x2F;www.owenyoung.com" 
+       >Owen Young</a> 
+       <p class="p-note">Web developer, I like reading and explore the internet, so I have collected queit a few notes in my blog.</p>
+      </div>
+      <div class="pt muted">
+        <div>
+          Published: <time class="dt-published published" datetime="2020-03-26">2020-03-26</time>, Updated: <time class="dt-updated updated" datetime="2022-03-26">2022-03-26</time>, Reading Time: 13 min</div>
+    </div>
+
+    </div>
+    
+    
+  </header>
+  <section>
+  
+    <section class="main">
+      <div class="display-none p-summary">
+        <p>Peertube is an activityPub-federated video streaming platform using P2P directly in your web browser.</p>
+
+      </div>
+      <a class="display-none u-url" href="https:&#x2F;&#x2F;www.owenyoung.com&#x2F;en&#x2F;blog&#x2F;peertube-setup-with-caddy-server&#x2F;">Permanent Link</a>
+      
+      <div class="main-toc pt">
+        <details>
+          <summary>On this page</summary>
+          
+<section class="sidebar-table-content">
+  <ul >
+    <li><a href="#start">Get Started</a></li>
+  
+      <li>
+          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#pre-requirement">Pre Requirement</a>
+          
+      </li>
+  
+      <li>
+          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#install">Install</a>
+          
+              <ul>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#peertube-user">PeerTube user</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#database">Database</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#prepare-peertube-directory">Prepare PeerTube directory</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#peertube-configuration">PeerTube configuration</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#webserver">Webserver</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#tcp-ip-tuning">TCP&#x2F;IP Tuning</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#systemd">systemd</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#administrator">Administrator</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#what-now">What now?</a>
+                      </li>
+                  
+              </ul>
+          
+      </li>
+  
+      <li>
+          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#upgrade">Upgrade</a>
+          
+              <ul>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#peertube-instance">PeerTube instance</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#nginx">nginx</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#systemd-1">systemd</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#restart-peertube">Restart PeerTube</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#things-went-wrong">Things went wrong?</a>
+                      </li>
+                  
+              </ul>
+          
+      </li>
+  
+  <li>
+    <a href="#response">Response</a>
+</li>
+  </ul>
+</section>
+
+        </details>
+
+      </div>
+      
+      <section id="start"></section>
+      <article class="e-content entry-content">
+        <p>Peertube is an activityPub-federated video streaming platform using P2P directly in your web browser.</p>
+<span id="continue-reading"></span>
+<p>Also see <a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/Chocobozzz/PeerTube/blob/develop/support/doc/production.md">here</a></p>
+<h2 id="pre-requirement">Pre Requirement<a class="zola-anchor" href="#pre-requirement" aria-label="Anchor link for: pre-requirement">🔗</a></h2>
+<ol>
+<li><a href="https://www.owenyoung.com/en/blog/debian-server-setup/">Debian Server Setup</a></li>
+<li><a href="https://www.owenyoung.com/en/blog/caddy2-setup-for-debian/">Caddy2 Setup for Debian</a></li>
+<li><a href="https://www.owenyoung.com/en/blog/nodejs-setup-for-debian/">Nodejs Setup for Debian</a></li>
+<li>Install yarn, and be sure to have <a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/yarnpkg/yarn/releases/latest">a recent version</a>:
+<a rel="noopener nofollow noreferrer" target="_blank" href="https://yarnpkg.com/en/docs/install#linux-tab">https://yarnpkg.com/en/docs/install#linux-tab</a></li>
+</ol>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span> npm i</span><span style="color:#bf616a;"> -g</span><span> yarn
+</span></code></pre>
+<ol start="4">
+<li>Install Python:</li>
+</ol>
+<p>On Ubuntu &lt;= bionic (18.04 LTS) or Debian &lt;= Buster:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>sudo apt update
+</span><span>sudo apt install python-dev
+</span><span>python --version # Should be &gt;= 2.x or &gt;= 3.x
+</span></code></pre>
+<p>On Ubuntu &gt;= focal (20.04 LTS) or Debian &gt;= Bullseye:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>sudo apt update
+</span><span>sudo apt install python3-dev python-is-python3 # python-is-python2 should also work
+</span><span>python --version # Should be &gt;= 2.x or &gt;= 3.x
+</span></code></pre>
+<h2 id="install">Install<a class="zola-anchor" href="#install" aria-label="Anchor link for: install">🔗</a></h2>
+<ol>
+<li>Install common dependencies:</li>
+</ol>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>sudo apt update
+</span><span>sudo apt install certbot nginx ffmpeg postgresql postgresql-contrib openssl g++ make redis-server git cron wget
+</span><span>ffmpeg -version # Should be &gt;= 4.1
+</span><span>g++ -v # Should be &gt;= 5.x
+</span></code></pre>
+<p>Now that dependencies are installed, before running PeerTube you should start PostgreSQL and Redis:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>sudo systemctl start redis postgresql
+</span></code></pre>
+<h3 id="peertube-user">PeerTube user<a class="zola-anchor" href="#peertube-user" aria-label="Anchor link for: peertube-user">🔗</a></h3>
+<p>Create a <code>peertube</code> user with <code>/var/www/peertube</code> home:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo useradd -m -d /var/www/peertube -s /bin/bash -p peertube peertube
+</span></code></pre>
+<p>Set its password:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo passwd peertube
+</span></code></pre>
+<h3 id="database">Database<a class="zola-anchor" href="#database" aria-label="Anchor link for: database">🔗</a></h3>
+<p>Create the production database and a peertube user inside PostgreSQL:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube
+</span><span>$ sudo -u postgres createuser -P peertube
+</span></code></pre>
+<p>For password you can use <code>peertube</code> from the default config yaml.</p>
+<p>Here you should enter a password for PostgreSQL <code>peertube</code> user, that should be copied in <code>production.yaml</code> file.
+Don’t just hit enter else it will be empty.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo -u postgres createdb -O peertube -E UTF8 -T template0 peertube_prod
+</span></code></pre>
+<p>Then enable extensions PeerTube needs:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo -u postgres psql -c &quot;CREATE EXTENSION pg_trgm;&quot; peertube_prod
+</span><span>$ sudo -u postgres psql -c &quot;CREATE EXTENSION unaccent;&quot; peertube_prod
+</span></code></pre>
+<h3 id="prepare-peertube-directory">Prepare PeerTube directory<a class="zola-anchor" href="#prepare-peertube-directory" aria-label="Anchor link for: prepare-peertube-directory">🔗</a></h3>
+<p>Fetch the latest tagged version of Peertube</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ VERSION=$(curl -s https://api.github.com/repos/chocobozzz/peertube/releases/latest | grep tag_name | cut -d &#39;&quot;&#39; -f 4) &amp;&amp; echo &quot;Latest Peertube version is $VERSION&quot;
+</span></code></pre>
+<p>Open the peertube directory, create a few required directories</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube
+</span><span>$ sudo -u peertube mkdir config storage versions
+</span><span>$ sudo -u peertube chmod 750 config/
+</span></code></pre>
+<p>Download the latest version of the Peertube client, unzip it and remove the zip</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube/versions
+</span><span>$ sudo -u peertube wget -q &quot;https://github.com/Chocobozzz/PeerTube/releases/download/${VERSION}/peertube-${VERSION}.zip&quot;
+</span><span>$ sudo -u peertube unzip -q peertube-${VERSION}.zip &amp;&amp; sudo -u peertube rm peertube-${VERSION}.zip
+</span></code></pre>
+<p>Install Peertube:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>cd /var/www/peertube
+</span><span>sudo -u peertube ln -s versions/peertube-${VERSION} ./peertube-latest
+</span><span>cd ./peertube-latest
+</span><span>sudo -H -u peertube yarn install --production --pure-lockfile
+</span></code></pre>
+<h3 id="peertube-configuration">PeerTube configuration<a class="zola-anchor" href="#peertube-configuration" aria-label="Anchor link for: peertube-configuration">🔗</a></h3>
+<p>Copy the default configuration file that contains the default configuration provided by PeerTube.
+You <strong>must not</strong> update this file.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube
+</span><span>$ sudo -u peertube cp peertube-latest/config/default.yaml config/default.yaml
+</span></code></pre>
+<p>Now copy the production example configuration:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube
+</span><span>$ sudo -u peertube cp peertube-latest/config/production.yaml.example config/production.yaml
+</span></code></pre>
+<p>Then edit the <code>config/production.yaml</code> file according to your webserver
+and database configuration (<code>webserver</code>, <code>database</code>, <code>redis</code>, <code>smtp</code> and <code>admin.email</code> sections in particular).
+Keys defined in <code>config/production.yaml</code> will override keys defined in <code>config/default.yaml</code>.</p>
+<p><strong>PeerTube does not support webserver host change</strong>. Even though <a rel="noopener nofollow noreferrer" target="_blank" href="https://docs.joinpeertube.org/maintain-tools?id=update-hostjs">PeerTube CLI can help you to switch hostname</a> there’s no official support for that since it is a risky operation that might result in unforeseen errors.</p>
+<h3 id="webserver">Webserver<a class="zola-anchor" href="#webserver" aria-label="Anchor link for: webserver">🔗</a></h3>
+<p>We only provide official configuration files for Nginx.</p>
+<p>Copy the nginx configuration template:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo /etc/nginx/sites-available/peertube
+</span></code></pre>
+<p>with the following config:</p>
+<pre data-lang="conf" style="background-color:#2b303b;color:#c0c5ce;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#65737e;"># Minimum Nginx version required:  1.13.0 (released Apr 25, 2017)
+</span><span style="color:#65737e;"># Please check your Nginx installation features the following modules via &#39;nginx -V&#39;:
+</span><span style="color:#65737e;"># STANDARD HTTP MODULES: Core, Proxy, Rewrite, Access, Gzip, Headers, HTTP/2, Log, Real IP, SSL, Thread Pool, Upstream, AIO Multithreading.
+</span><span style="color:#65737e;"># THIRD PARTY MODULES:   None.
+</span><span>
+</span><span style="color:#bf616a;">upstream </span><span>backend {
+</span><span>  </span><span style="color:#bf616a;">server </span><span style="color:#d08770;">127.0.0.1:9000</span><span>;
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">server </span><span>{
+</span><span>  </span><span style="color:#bf616a;">listen </span><span style="color:#d08770;">8880</span><span>;
+</span><span>  </span><span style="color:#bf616a;">listen </span><span>[::]:</span><span style="color:#d08770;">8880</span><span>;
+</span><span>  </span><span style="color:#bf616a;">access_log </span><span>/var/log/nginx/peertube.access.log; </span><span style="color:#65737e;"># reduce I/0 with buffer=10m flush=5m
+</span><span>  </span><span style="color:#bf616a;">error_log  </span><span>/var/log/nginx/peertube.error.log;
+</span><span>
+</span><span>  </span><span style="color:#65737e;">##
+</span><span>  </span><span style="color:#65737e;"># Certificates
+</span><span>  </span><span style="color:#65737e;"># you need a certificate to run in production. see https://letsencrypt.org/
+</span><span>  </span><span style="color:#65737e;">##
+</span><span>
+</span><span style="color:#b48ead;">  location @api</span><span> {
+</span><span>    </span><span style="color:#bf616a;">proxy_set_header </span><span>X-Forwarded-For </span><span style="color:#b48ead;">$proxy_add_x_forwarded_for</span><span>;
+</span><span>    </span><span style="color:#bf616a;">proxy_set_header </span><span>Host  </span><span style="color:#b48ead;">$host</span><span>;
+</span><span>    </span><span style="color:#bf616a;">proxy_set_header </span><span>X-Real-IP       </span><span style="color:#b48ead;">$remote_addr</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">client_max_body_size  </span><span style="color:#d08770;">100k</span><span>; </span><span style="color:#65737e;"># default is 1M
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">proxy_connect_timeout </span><span style="color:#d08770;">10m</span><span>;
+</span><span>    </span><span style="color:#bf616a;">proxy_send_timeout    </span><span style="color:#d08770;">10m</span><span>;
+</span><span>    </span><span style="color:#bf616a;">proxy_read_timeout    </span><span style="color:#d08770;">10m</span><span>;
+</span><span>    </span><span style="color:#bf616a;">send_timeout          </span><span style="color:#d08770;">10m</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">proxy_pass </span><span style="color:#d08770;">http://backend</span><span>;
+</span><span>  }
+</span><span>
+</span><span style="color:#b48ead;">  location </span><span>/ {
+</span><span>    </span><span style="color:#bf616a;">try_files </span><span>/dev/</span><span style="color:#d08770;">null </span><span style="color:#b48ead;">@api</span><span>;
+</span><span>  }
+</span><span>
+</span><span style="color:#b48ead;">  location </span><span>= /api/v1/videos/upload-resumable {
+</span><span>    </span><span style="color:#bf616a;">client_max_body_size    </span><span style="color:#d08770;">0</span><span>;
+</span><span>    </span><span style="color:#bf616a;">proxy_request_buffering </span><span style="color:#d08770;">off</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">try_files </span><span>/dev/</span><span style="color:#d08770;">null </span><span style="color:#b48ead;">@api</span><span>;
+</span><span>  }
+</span><span>
+</span><span style="color:#b48ead;">  location </span><span>= /api/v1/videos/upload {
+</span><span>    </span><span style="color:#bf616a;">limit_except </span><span>POST HEAD { deny all; }
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># This is the maximum upload size, which roughly matches the maximum size of a video file.
+</span><span>    </span><span style="color:#65737e;"># Note that temporary space is needed equal to the total size of all concurrent uploads.
+</span><span>    </span><span style="color:#65737e;"># This data gets stored in /var/lib/nginx by default, so you may want to put this directory
+</span><span>    </span><span style="color:#65737e;"># on a dedicated filesystem.
+</span><span>    </span><span style="color:#bf616a;">client_max_body_size                      </span><span style="color:#d08770;">12G</span><span>; </span><span style="color:#65737e;"># default is 1M
+</span><span>    </span><span style="color:#bf616a;">add_header            </span><span>X-File-Maximum-Size </span><span style="color:#d08770;">8G</span><span> always; </span><span style="color:#65737e;"># inform backend of the set value in bytes before mime-encoding (x * 1.4 &gt;= client_max_body_size)
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">try_files </span><span>/dev/</span><span style="color:#d08770;">null </span><span style="color:#b48ead;">@api</span><span>;
+</span><span>  }
+</span><span>
+</span><span style="color:#b48ead;">  location </span><span>~ ^/api/v1/(videos|video-playlists|video-channels|users/me) {
+</span><span>    </span><span style="color:#bf616a;">client_max_body_size                      </span><span style="color:#d08770;">6M</span><span>; </span><span style="color:#65737e;"># default is 1M
+</span><span>    </span><span style="color:#bf616a;">add_header            </span><span>X-File-Maximum-Size </span><span style="color:#d08770;">4M</span><span> always; </span><span style="color:#65737e;"># inform backend of the set value in bytes before mime-encoding (x * 1.4 &gt;= client_max_body_size)
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">try_files </span><span>/dev/</span><span style="color:#d08770;">null </span><span style="color:#b48ead;">@api</span><span>;
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#65737e;">##
+</span><span>  </span><span style="color:#65737e;"># Websocket
+</span><span>  </span><span style="color:#65737e;">##
+</span><span>
+</span><span style="color:#b48ead;">  location @api_websocket</span><span> {
+</span><span>    </span><span style="color:#bf616a;">proxy_http_version </span><span style="color:#d08770;">1</span><span>.</span><span style="color:#d08770;">1</span><span>;
+</span><span>    </span><span style="color:#bf616a;">proxy_set_header   </span><span>X-Forwarded-For </span><span style="color:#b48ead;">$proxy_add_x_forwarded_for</span><span>;
+</span><span>    </span><span style="color:#bf616a;">proxy_set_header   </span><span>Host            </span><span style="color:#b48ead;">$host</span><span>;
+</span><span>    </span><span style="color:#bf616a;">proxy_set_header   </span><span>X-Real-IP       </span><span style="color:#b48ead;">$remote_addr</span><span>;
+</span><span>    </span><span style="color:#bf616a;">proxy_set_header   </span><span>Upgrade         </span><span style="color:#b48ead;">$http_upgrade</span><span>;
+</span><span>    </span><span style="color:#bf616a;">proxy_set_header   </span><span>Connection      </span><span style="color:#a3be8c;">&quot;upgrade&quot;</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">proxy_pass </span><span style="color:#d08770;">http://backend</span><span>;
+</span><span>  }
+</span><span>
+</span><span style="color:#b48ead;">  location </span><span>/socket.io {
+</span><span>    </span><span style="color:#bf616a;">try_files </span><span>/dev/</span><span style="color:#d08770;">null </span><span style="color:#b48ead;">@api_websocket</span><span>;
+</span><span>  }
+</span><span>
+</span><span style="color:#b48ead;">  location </span><span>/tracker/socket {
+</span><span>    </span><span style="color:#65737e;"># Peers send a message to the tracker every 15 minutes
+</span><span>    </span><span style="color:#65737e;"># Don&#39;t close the websocket before then
+</span><span>    </span><span style="color:#bf616a;">proxy_read_timeout </span><span style="color:#d08770;">15m</span><span>; </span><span style="color:#65737e;"># default is 60s
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">try_files </span><span>/dev/</span><span style="color:#d08770;">null </span><span style="color:#b48ead;">@api_websocket</span><span>;
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#65737e;">##
+</span><span>  </span><span style="color:#65737e;"># Performance optimizations
+</span><span>  </span><span style="color:#65737e;"># For extra performance please refer to https://github.com/denji/nginx-tuning
+</span><span>  </span><span style="color:#65737e;">##
+</span><span>
+</span><span>  </span><span style="color:#bf616a;">root </span><span>/var/www/peertube/storage;
+</span><span>
+</span><span>  </span><span style="color:#65737e;"># Enable compression for JS/CSS/HTML, for improved client load times.
+</span><span>  </span><span style="color:#65737e;"># It might be nice to compress JSON/XML as returned by the API, but
+</span><span>  </span><span style="color:#65737e;"># leaving that out to protect against potential BREACH attack.
+</span><span>  </span><span style="color:#bf616a;">gzip              </span><span style="color:#d08770;">on</span><span>;
+</span><span>  </span><span style="color:#bf616a;">gzip_vary         </span><span style="color:#d08770;">on</span><span>;
+</span><span>  </span><span style="color:#bf616a;">gzip_types        </span><span># text/html is always compressed by HttpGzipModule
+</span><span>                    </span><span style="color:#bf616a;">text</span><span>/css
+</span><span>                    </span><span style="color:#bf616a;">application</span><span>/javascript
+</span><span>                    </span><span style="color:#bf616a;">font</span><span>/truetype
+</span><span>                    </span><span style="color:#bf616a;">font</span><span>/opentype
+</span><span>                    </span><span style="color:#bf616a;">application</span><span>/vnd.ms-fontobject
+</span><span>                    </span><span style="color:#bf616a;">image</span><span>/svg+xml;
+</span><span>  </span><span style="color:#bf616a;">gzip_min_length   </span><span style="color:#d08770;">1000</span><span>; </span><span style="color:#65737e;"># default is 20 bytes
+</span><span>  </span><span style="color:#bf616a;">gzip_buffers      </span><span style="color:#d08770;">16 8k</span><span>;
+</span><span>  </span><span style="color:#bf616a;">gzip_comp_level   </span><span style="color:#d08770;">2</span><span>; </span><span style="color:#65737e;"># default is 1
+</span><span>
+</span><span>  </span><span style="color:#bf616a;">client_body_timeout       </span><span style="color:#d08770;">30s</span><span>; </span><span style="color:#65737e;"># default is 60
+</span><span>  </span><span style="color:#bf616a;">client_header_timeout     </span><span style="color:#d08770;">10s</span><span>; </span><span style="color:#65737e;"># default is 60
+</span><span>  </span><span style="color:#bf616a;">send_timeout              </span><span style="color:#d08770;">10s</span><span>; </span><span style="color:#65737e;"># default is 60
+</span><span>  </span><span style="color:#bf616a;">keepalive_timeout         </span><span style="color:#d08770;">10s</span><span>; </span><span style="color:#65737e;"># default is 75
+</span><span>  </span><span style="color:#bf616a;">resolver_timeout          </span><span style="color:#d08770;">10s</span><span>; </span><span style="color:#65737e;"># default is 30
+</span><span>  </span><span style="color:#bf616a;">reset_timedout_connection </span><span style="color:#d08770;">on</span><span>;
+</span><span>  </span><span style="color:#bf616a;">proxy_ignore_client_abort </span><span style="color:#d08770;">on</span><span>;
+</span><span>
+</span><span>  </span><span style="color:#bf616a;">tcp_nopush                </span><span style="color:#d08770;">on</span><span>; </span><span style="color:#65737e;"># send headers in one piece
+</span><span>  </span><span style="color:#bf616a;">tcp_nodelay               </span><span style="color:#d08770;">on</span><span>; </span><span style="color:#65737e;"># don&#39;t buffer data sent, good for small data bursts in real time
+</span><span>
+</span><span>  </span><span style="color:#65737e;"># If you have a small /var/lib partition, it could be interesting to store temp nginx uploads in a different place
+</span><span>  </span><span style="color:#65737e;"># See https://nginx.org/en/docs/http/ngx_http_core_module.html#client_body_temp_path
+</span><span>  </span><span style="color:#65737e;">#client_body_temp_path /var/www/peertube/storage/nginx/;
+</span><span>
+</span><span>  </span><span style="color:#65737e;"># Bypass PeerTube for performance reasons. Optional.
+</span><span>  </span><span style="color:#65737e;"># Should be consistent with client-overrides assets list in /server/controllers/client.ts
+</span><span style="color:#b48ead;">  location </span><span>~ </span><span style="color:#96b5b4;">^/client/(assets/images/(icons/icon-36x36\.png|icons/icon-48x48\.png|icons/icon-72x72\.png|icons/icon-96x96\.png|icons/icon-144x144\.png|icons/icon-192x192\.png|icons/icon-512x512\.png|logo\.svg|favicon\.png))$</span><span> {
+</span><span>    </span><span style="color:#bf616a;">add_header </span><span>Cache-Control </span><span style="color:#a3be8c;">&quot;public, max-age=31536000, immutable&quot;</span><span>; </span><span style="color:#65737e;"># Cache 1 year
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">root </span><span>/var/www/peertube;
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">try_files </span><span>/storage/client-overrides/</span><span style="color:#b48ead;">$1 </span><span>/peertube-latest/client/dist/</span><span style="color:#b48ead;">$1 @api</span><span>;
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#65737e;"># Bypass PeerTube for performance reasons. Optional.
+</span><span style="color:#b48ead;">  location </span><span>~ </span><span style="color:#96b5b4;">^/client/(.*\.(js|css|png|svg|woff2|otf|ttf|woff|eot))$</span><span> {
+</span><span>    </span><span style="color:#bf616a;">add_header </span><span>Cache-Control </span><span style="color:#a3be8c;">&quot;public, max-age=31536000, immutable&quot;</span><span>; </span><span style="color:#65737e;"># Cache 1 year
+</span><span>
+</span><span style="color:#b48ead;">    alias </span><span>/var/www/peertube/peertube-latest/client/dist/</span><span style="color:#b48ead;">$1</span><span>;
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#65737e;"># Bypass PeerTube for performance reasons. Optional.
+</span><span style="color:#b48ead;">  location </span><span>~ ^/static/(thumbnails|avatars)/ {
+</span><span style="color:#b48ead;">    if</span><span> (</span><span style="color:#b48ead;">$request_method </span><span>= </span><span style="color:#a3be8c;">&#39;OPTIONS&#39;</span><span>) {
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Origin  </span><span style="color:#a3be8c;">&#39;*&#39;</span><span>;
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Methods </span><span style="color:#a3be8c;">&#39;GET, OPTIONS&#39;</span><span>;
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Headers </span><span style="color:#a3be8c;">&#39;Range,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&#39;</span><span>;
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Max-Age       </span><span style="color:#d08770;">1728000</span><span>; </span><span style="color:#65737e;"># Preflight request can be cached 20 days
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Content-Type                 </span><span style="color:#a3be8c;">&#39;text/plain charset=UTF-8&#39;</span><span>;
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Content-Length               </span><span style="color:#d08770;">0</span><span>;
+</span><span>      </span><span style="color:#bf616a;">return </span><span style="color:#d08770;">204</span><span>;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Origin    </span><span style="color:#a3be8c;">&#39;*&#39;</span><span>;
+</span><span>    </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Methods   </span><span style="color:#a3be8c;">&#39;GET, OPTIONS&#39;</span><span>;
+</span><span>    </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Headers   </span><span style="color:#a3be8c;">&#39;Range,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&#39;</span><span>;
+</span><span>    </span><span style="color:#bf616a;">add_header </span><span>Cache-Control                  </span><span style="color:#a3be8c;">&quot;public, max-age=7200&quot;</span><span>; </span><span style="color:#65737e;"># Cache response 2 hours
+</span><span>
+</span><span style="color:#b48ead;">    rewrite </span><span style="color:#96b5b4;">^/static/(.*)$ /$</span><span style="color:#d08770;">1</span><span> break;
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">try_files </span><span style="color:#b48ead;">$uri @api</span><span>;
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#65737e;"># Bypass PeerTube for performance reasons. Optional.
+</span><span style="color:#b48ead;">  location </span><span>~ ^/static/(webseed|redundancy|streaming-playlists)/ {
+</span><span>    </span><span style="color:#bf616a;">limit_rate_after            </span><span style="color:#d08770;">5M</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># Clients usually have 4 simultaneous webseed connections, so the real limit is 3MB/s per client
+</span><span>    </span><span style="color:#bf616a;">set </span><span style="color:#b48ead;">$peertube_limit_rate    </span><span style="color:#d08770;">800k</span><span>;
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># Increase rate limit in HLS mode, because we don&#39;t have multiple simultaneous connections
+</span><span style="color:#b48ead;">    if</span><span> (</span><span style="color:#b48ead;">$request_uri </span><span>~ -fragmented.mp4$) {
+</span><span>      </span><span style="color:#bf616a;">set </span><span style="color:#b48ead;">$peertube_limit_rate  </span><span style="color:#d08770;">5M</span><span>;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># Use this line with nginx &gt;= 1.17.0
+</span><span>    </span><span style="color:#65737e;">#limit_rate $peertube_limit_rate;
+</span><span>    </span><span style="color:#65737e;"># Or this line if your nginx &lt; 1.17.0
+</span><span>    </span><span style="color:#bf616a;">set </span><span style="color:#b48ead;">$limit_rate $peertube_limit_rate</span><span>;
+</span><span>
+</span><span style="color:#b48ead;">    if</span><span> (</span><span style="color:#b48ead;">$request_method </span><span>= </span><span style="color:#a3be8c;">&#39;OPTIONS&#39;</span><span>) {
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Origin  </span><span style="color:#a3be8c;">&#39;*&#39;</span><span>;
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Methods </span><span style="color:#a3be8c;">&#39;GET, OPTIONS&#39;</span><span>;
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Headers </span><span style="color:#a3be8c;">&#39;Range,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&#39;</span><span>;
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Max-Age       </span><span style="color:#d08770;">1728000</span><span>; </span><span style="color:#65737e;"># Preflight request can be cached 20 days
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Content-Type                 </span><span style="color:#a3be8c;">&#39;text/plain charset=UTF-8&#39;</span><span>;
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Content-Length               </span><span style="color:#d08770;">0</span><span>;
+</span><span>      </span><span style="color:#bf616a;">return </span><span style="color:#d08770;">204</span><span>;
+</span><span>    }
+</span><span>
+</span><span style="color:#b48ead;">    if</span><span> (</span><span style="color:#b48ead;">$request_method </span><span>= </span><span style="color:#a3be8c;">&#39;GET&#39;</span><span>) {
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Origin  </span><span style="color:#a3be8c;">&#39;*&#39;</span><span>;
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Methods </span><span style="color:#a3be8c;">&#39;GET, OPTIONS&#39;</span><span>;
+</span><span>      </span><span style="color:#bf616a;">add_header </span><span>Access-Control-Allow-Headers </span><span style="color:#a3be8c;">&#39;Range,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type&#39;</span><span>;
+</span><span>
+</span><span>      </span><span style="color:#65737e;"># Don&#39;t spam access log file with byte range requests
+</span><span>      </span><span style="color:#bf616a;">access_log </span><span style="color:#d08770;">off</span><span>;
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#65737e;"># Enabling the sendfile directive eliminates the step of copying the data into the buffer
+</span><span>    </span><span style="color:#65737e;"># and enables direct copying data from one file descriptor to another.
+</span><span>    </span><span style="color:#bf616a;">sendfile </span><span style="color:#d08770;">on</span><span>;
+</span><span>    </span><span style="color:#bf616a;">sendfile_max_chunk </span><span style="color:#d08770;">1M</span><span>; </span><span style="color:#65737e;"># prevent one fast connection from entirely occupying the worker process. should be &gt; 800k.
+</span><span>    </span><span style="color:#bf616a;">aio </span><span>threads;
+</span><span>
+</span><span style="color:#b48ead;">    rewrite </span><span style="color:#96b5b4;">^/static/webseed/(.*)$ /videos/$</span><span style="color:#d08770;">1</span><span> break;
+</span><span style="color:#b48ead;">    rewrite </span><span style="color:#96b5b4;">^/static/(.*)$         /$</span><span style="color:#d08770;">1</span><span>        break;
+</span><span>
+</span><span>    </span><span style="color:#bf616a;">try_files </span><span style="color:#b48ead;">$uri @api</span><span>;
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>Add caddy config:</p>
+<pre data-lang="conf" style="background-color:#2b303b;color:#c0c5ce;" class="language-conf "><code class="language-conf" data-lang="conf"><span style="color:#bf616a;">example</span><span>.com {
+</span><span>	</span><span style="color:#bf616a;">reverse_proxy </span><span style="color:#d08770;">127.0.0.1:8880
+</span><span>}
+</span></code></pre>
+<p>Then modify the webserver configuration file. Please pay attention to the <code>alias</code> keys of the static locations.
+It should correspond to the paths of your storage directories (set in the configuration file inside the <code>storage</code> key).</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo vim /etc/nginx/sites-available/peertube
+</span></code></pre>
+<p>Activate the configuration file:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo ln -s /etc/nginx/sites-available/peertube /etc/nginx/sites-enabled/peertube
+</span></code></pre>
+<p>To generate the certificate for your domain as required to make https work you can use <a rel="noopener nofollow noreferrer" target="_blank" href="https://letsencrypt.org/">Let’s Encrypt</a>:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo systemctl stop nginx
+</span><span>$ sudo certbot certonly --standalone --post-hook &quot;systemctl restart nginx&quot;
+</span><span>$ sudo systemctl reload nginx
+</span></code></pre>
+<p>Now you have the certificates you can reload nginx:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo systemctl reload nginx
+</span></code></pre>
+<p>Certbot should have installed a cron to automatically renew your certificate.
+Since our nginx template supports webroot renewal, we suggest you to update the renewal config file to use the <code>webroot</code> authenticator:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ # Replace authenticator = standalone by authenticator = webroot
+</span><span>$ # Add webroot_path = /var/www/certbot
+</span><span>$ sudo vim /etc/letsencrypt/renewal/your-domain.com.conf
+</span></code></pre>
+<h3 id="tcp-ip-tuning">TCP/IP Tuning<a class="zola-anchor" href="#tcp-ip-tuning" aria-label="Anchor link for: tcp-ip-tuning">🔗</a></h3>
+<p><strong>On Linux</strong></p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo cp /var/www/peertube/peertube-latest/support/sysctl.d/30-peertube-tcp.conf /etc/sysctl.d/
+</span><span>$ sudo sysctl -p /etc/sysctl.d/30-peertube-tcp.conf
+</span></code></pre>
+<p>Your distro may enable this by default, but at least Debian 9 does not, and the default FIFO
+scheduler is quite prone to “Buffer Bloat” and extreme latency when dealing with slower client
+links as we often encounter in a video server.</p>
+<h3 id="systemd">systemd<a class="zola-anchor" href="#systemd" aria-label="Anchor link for: systemd">🔗</a></h3>
+<p>If your OS uses systemd, copy the configuration template:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo cp /var/www/peertube/peertube-latest/support/systemd/peertube.service /etc/systemd/system/
+</span></code></pre>
+<p>Check the service file (PeerTube paths and security directives):</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo vim /etc/systemd/system/peertube.service
+</span></code></pre>
+<p>Tell systemd to reload its config:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo systemctl daemon-reload
+</span></code></pre>
+<p>If you want to start PeerTube on boot:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo systemctl enable peertube
+</span></code></pre>
+<p>Run:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo systemctl start peertube
+</span><span>$ sudo journalctl -feu peertube
+</span></code></pre>
+<p>Run:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo service peertube start
+</span></code></pre>
+<h3 id="administrator">Administrator<a class="zola-anchor" href="#administrator" aria-label="Anchor link for: administrator">🔗</a></h3>
+<p>The administrator password is automatically generated and can be found in the PeerTube
+logs (path defined in <code>production.yaml</code>). You can also set another password with:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube/peertube-latest &amp;&amp; NODE_CONFIG_DIR=/var/www/peertube/config NODE_ENV=production npm run reset-password -- -u root
+</span></code></pre>
+<p>Alternatively you can set the environment variable <code>PT_INITIAL_ROOT_PASSWORD</code>,
+to your own administrator password, although it must be 6 characters or more.</p>
+<h3 id="what-now">What now?<a class="zola-anchor" href="#what-now" aria-label="Anchor link for: what-now">🔗</a></h3>
+<p>Now your instance is up you can:</p>
+<ul>
+<li>Add your instance to the public PeerTube instances index if you want to: https://instances.joinpeertube.org/</li>
+<li>Check <a href="/support/doc/tools.md">available CLI tools</a></li>
+</ul>
+<h2 id="upgrade">Upgrade<a class="zola-anchor" href="#upgrade" aria-label="Anchor link for: upgrade">🔗</a></h2>
+<h3 id="peertube-instance">PeerTube instance<a class="zola-anchor" href="#peertube-instance" aria-label="Anchor link for: peertube-instance">🔗</a></h3>
+<p><strong>Check the changelog (in particular BREAKING CHANGES!):</strong> https://github.com/Chocobozzz/PeerTube/blob/develop/CHANGELOG.md</p>
+<h4 id="auto">Auto<a class="zola-anchor" href="#auto" aria-label="Anchor link for: auto">🔗</a></h4>
+<p>The password it asks is PeerTube’s database user password.</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube/peertube-latest/scripts &amp;&amp; sudo -H -u peertube ./upgrade.sh
+</span><span>$ sudo systemctl restart peertube # Or use your OS command to restart PeerTube if you don&#39;t use systemd
+</span></code></pre>
+<h4 id="manually">Manually<a class="zola-anchor" href="#manually" aria-label="Anchor link for: manually">🔗</a></h4>
+<p>Make a SQL backup</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ SQL_BACKUP_PATH=&quot;backup/sql-peertube_prod-$(date -Im).bak&quot; &amp;&amp; \
+</span><span>    cd /var/www/peertube &amp;&amp; sudo -u peertube mkdir -p backup &amp;&amp; \
+</span><span>    sudo -u postgres pg_dump -F c peertube_prod | sudo -u peertube tee &quot;$SQL_BACKUP_PATH&quot; &gt;/dev/null
+</span></code></pre>
+<p>Fetch the latest tagged version of Peertube:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ VERSION=$(curl -s https://api.github.com/repos/chocobozzz/peertube/releases/latest | grep tag_name | cut -d &#39;&quot;&#39; -f 4) &amp;&amp; echo &quot;Latest Peertube version is $VERSION&quot;
+</span></code></pre>
+<p>Download the new version and unzip it:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube/versions &amp;&amp; \
+</span><span>    sudo -u peertube wget -q &quot;https://github.com/Chocobozzz/PeerTube/releases/download/${VERSION}/peertube-${VERSION}.zip&quot; &amp;&amp; \
+</span><span>    sudo -u peertube unzip -o peertube-${VERSION}.zip &amp;&amp; \
+</span><span>    sudo -u peertube rm peertube-${VERSION}.zip
+</span></code></pre>
+<p>Install node dependencies:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube/versions/peertube-${VERSION} &amp;&amp; \
+</span><span>    sudo -H -u peertube yarn install --production --pure-lockfile
+</span></code></pre>
+<p>Copy new configuration defaults values and update your configuration file:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo -u peertube cp /var/www/peertube/versions/peertube-${VERSION}/config/default.yaml /var/www/peertube/config/default.yaml
+</span><span>$ diff /var/www/peertube/versions/peertube-${VERSION}/config/production.yaml.example /var/www/peertube/config/production.yaml
+</span></code></pre>
+<p>Change the link to point to the latest version:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube &amp;&amp; \
+</span><span>    sudo unlink ./peertube-latest &amp;&amp; \
+</span><span>    sudo -u peertube ln -s versions/peertube-${VERSION} ./peertube-latest
+</span></code></pre>
+<h3 id="nginx">nginx<a class="zola-anchor" href="#nginx" aria-label="Anchor link for: nginx">🔗</a></h3>
+<p>Check changes in nginx configuration:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube/versions
+</span><span>$ diff &quot;$(ls --sort=t | head -2 | tail -1)/support/nginx/peertube&quot; &quot;$(ls --sort=t | head -1)/support/nginx/peertube&quot;
+</span></code></pre>
+<h3 id="systemd-1">systemd<a class="zola-anchor" href="#systemd-1" aria-label="Anchor link for: systemd-1">🔗</a></h3>
+<p>Check changes in systemd configuration:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ cd /var/www/peertube/versions
+</span><span>$ diff &quot;$(ls --sort=t | head -2 | tail -1)/support/systemd/peertube.service&quot; &quot;$(ls --sort=t | head -1)/support/systemd/peertube.service&quot;
+</span></code></pre>
+<h3 id="restart-peertube">Restart PeerTube<a class="zola-anchor" href="#restart-peertube" aria-label="Anchor link for: restart-peertube">🔗</a></h3>
+<p>If you changed your nginx configuration:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo systemctl reload nginx
+</span></code></pre>
+<p>If you changed your systemd configuration:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo systemctl daemon-reload
+</span></code></pre>
+<p>Restart PeerTube and check the logs:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ sudo systemctl restart peertube &amp;&amp; sudo journalctl -fu peertube
+</span></code></pre>
+<h3 id="things-went-wrong">Things went wrong?<a class="zola-anchor" href="#things-went-wrong" aria-label="Anchor link for: things-went-wrong">🔗</a></h3>
+<p>Change <code>peertube-latest</code> destination to the previous version and restore your SQL backup:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>$ OLD_VERSION=&quot;v0.42.42&quot; &amp;&amp; SQL_BACKUP_PATH=&quot;backup/sql-peertube_prod-2018-01-19T10:18+01:00.bak&quot; &amp;&amp; \
+</span><span>    cd /var/www/peertube &amp;&amp; sudo -u peertube unlink ./peertube-latest &amp;&amp; \
+</span><span>    sudo -u peertube ln -s &quot;versions/peertube-$OLD_VERSION&quot; peertube-latest &amp;&amp; \
+</span><span>    sudo -u postgres pg_restore -c -C -d postgres &quot;$SQL_BACKUP_PATH&quot; &amp;&amp; \
+</span><span>    sudo systemctl restart peertube
+</span></code></pre>
+
+      </article>
+      
+      <section>
+        <hr>
+        <a class="muted" href="https://github.com/theowenyoung/blog/tree/main/content/blog/peertube-setup-with-caddy-server.en.md">📝 Edit this page</a>
+      </section>
+      
+  
+      
+      
+      
+      <section class="p-comments h-feed">
+      <hr>
+      <h2>Response<a href="#response" id="response" class="zola-anchor" >🔗</a></h2>
+      <form class="webmention-form" action="https://webmention.io/www.owenyoung.com/webmention" method="post">
+        
+        <div id="email-comment" class="muted text-sm">
+          
+           <p>Have you written a <a href="https://indieweb.org/responses">response</a> to this? Let me know the URL,
+             Or, you can send your response via <a href="mailto:owen@owenyoung.com?subject=Reply%3A%20Peertube%20Setup%20with%20Caddy%20Server">mail </a><code>owen@owenyoung.com</code>
+           </p>
+          
+        
+        </div>
+        
+        <div class="flex items-center flex-wrap pb">
+          <input type="url" name="source" class="flex-3 mr-sm w-full py-sm px-sm">
+          <input type="submit" class="px py-sm" value="Send Webmention">
+        </div>
+        <div class="status hidden">
+          <div class="ui message"></div>
+        </div>
+        <input type="hidden" name="target" value="https:&#x2F;&#x2F;www.owenyoung.com&#x2F;en&#x2F;blog&#x2F;peertube-setup-with-caddy-server&#x2F;">
+      </form>
+        
+      </section>
+      
+      
+
+    </section>
+    
+   
+  </section>
+</div>
+   
+
+              </div>
+          </section>
+
+          
+<aside class="sidebar px ">
+
+<h2>On this page</h2>
+
+<section class="sidebar-table-content">
+  <ul >
+    <li><a href="#start">Get Started</a></li>
+  
+      <li>
+          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#pre-requirement">Pre Requirement</a>
+          
+      </li>
+  
+      <li>
+          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#install">Install</a>
+          
+              <ul>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#peertube-user">PeerTube user</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#database">Database</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#prepare-peertube-directory">Prepare PeerTube directory</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#peertube-configuration">PeerTube configuration</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#webserver">Webserver</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#tcp-ip-tuning">TCP&#x2F;IP Tuning</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#systemd">systemd</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#administrator">Administrator</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#what-now">What now?</a>
+                      </li>
+                  
+              </ul>
+          
+      </li>
+  
+      <li>
+          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#upgrade">Upgrade</a>
+          
+              <ul>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#peertube-instance">PeerTube instance</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#nginx">nginx</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#systemd-1">systemd</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#restart-peertube">Restart PeerTube</a>
+                      </li>
+                  
+                      <li>
+                          <a href="https://www.owenyoung.com/en/blog/peertube-setup-with-caddy-server/#things-went-wrong">Things went wrong?</a>
+                      </li>
+                  
+              </ul>
+          
+      </li>
+  
+  <li>
+    <a href="#response">Response</a>
+</li>
+  </ul>
+</section>
+
+
+</aside>
+
+
+
+      </main>
+      </section>
+    <section id="bottom"></section>
+  </body>
+</html>

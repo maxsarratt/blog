@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html
+  lang="zh"
+  itemscope
+  itemtype="http://schema.org/Blog"
+>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1"
+    />
+    <link rel="me" href="https://twitter.com/TheOwenYoung" />
+    <link rel="me" href="https://twitter.com/OwenYoungZh" />
+    <link rel="me" href="https://github.com/theowenyoung" />
+    <link rel="me" href="mailto:owen@owenyoung.com" />
+    <link
+  rel="webmention"
+  href="https://webmention.io/www.owenyoung.com/webmention"
+/>
+    <link rel="stylesheet" href="https://www.owenyoung.com/site/styles/site.css?h=4dee2ba4028af76706f18ae61599cfdfcf7bdaf940255d26327f246d0fab8644">
+    <title>Gatsby框架的缺点 - Owen的博客</title>
+    <meta
+      name="description"
+      itemprop="about"
+      content=" Gatsby.js是一个基于 React 生成静态网站的工具链，也称为静态网站生成器(SSG), 旨在让开发人员使用基于 React 的框架和基于 Gaphql 的数据层去构建快速、安全且功能强大的网站，从而将不同的内容、API 和服务生成一个体验良好的静态网站。
+  "
+    />
+    <meta
+      name="keywords"
+      itemprop="keywords"
+      content="注意力, 读书, 工具分享, 纯文本, 英语学习"
+    />
+    <meta name="author" itemprop="author" content="Owen Young" />
+    <meta itemprop="headline" content="Gatsby框架的缺点 - Owen的博客" />
+    <meta itemprop="copyrightYear" content="2022" />
+    <link rel="icon" href="https://www.owenyoung.com/site/images/favicon-32x32.png?h=ca02fcaedf5905bad24cad048d2c0ead87ee7df6ff599938026255c876b644a6"
+    type="image/x-icon"> <link rel="apple-touch-icon" sizes="57x57" href="https://www.owenyoung.com/site/images/apple-icon-57x57.png?h=4f2caa895f8778fc9c8afc6173d2bf4711c82ba1db300d9378a8f5e90f75c6e4"> <link
+    rel="apple-touch-icon" sizes="60x60" href="https://www.owenyoung.com/site/images/apple-icon-60x60.png?h=7eab63f6f6ad0d3f7c4858613eb6d5c86cb0eff7d52a04208a6cda526c94b65b"> <link
+    rel="apple-touch-icon" sizes="72x72" href="https://www.owenyoung.com/site/images/apple-icon-72x72.png?h=2deb7fdcbb705196d1e77a75bd4952aba52bfbbb176af203a790a7ab7b7b0c64"> <link
+    rel="apple-touch-icon" sizes="76x76" href="https://www.owenyoung.com/site/images/apple-icon-76x76.png?h=f7399cc2fb4a26b40dba3ef47377b78d10b9b71aa6650719bb0ca6225d82350a"> <link
+    rel="apple-touch-icon" sizes="114x114" href="https://www.owenyoung.com/site/images/apple-icon-114x114.png?h=ff5d19a568c1a6f16fd7691e977f9bc0a93a67e549025140e907e0437ac0a020"> <link
+    rel="apple-touch-icon" sizes="120x120" href="https://www.owenyoung.com/site/images/apple-icon-120x120.png?h=f7b7916df875e4ba50c8ba87794d6932b436b4760d530c740ce989c794567c50"> <link
+    rel="apple-touch-icon" sizes="144x144" href="https://www.owenyoung.com/site/images/apple-icon-144x144.png?h=3f1d58f726fa497889b5fbb0d6f3ed6035b1bf7a566d22483a2d64c26dd23363"> <link
+    rel="apple-touch-icon" sizes="152x152" href="https://www.owenyoung.com/site/images/apple-icon-152x152.png?h=9f5a1ed5380948afb2a65a11af385bac584e3c38eb99c41c4b008ca9ccb71d70"> <link
+    rel="apple-touch-icon" sizes="180x180" href="https://www.owenyoung.com/site/images/apple-icon-180x180.png?h=cdb4da969c5ed2fe8e358cd6fff1bd76006815c6bfb8a10dfac056de10db8fb1"> <link rel="icon"
+    type="image/png" sizes="192x192" href="https://www.owenyoung.com/site/images/android-icon-192x192.png?h=552ba48807682a3e49d1f2b34dfe273b166139cb056b49d96425117987c046ac"> <link rel="icon"
+    type="image/png" sizes="32x32" href="https://www.owenyoung.com/site/images/favicon-32x32.png?h=ca02fcaedf5905bad24cad048d2c0ead87ee7df6ff599938026255c876b644a6"> <link rel="icon"
+    type="image/png" sizes="96x96" href="https://www.owenyoung.com/site/images/favicon-96x96.png?h=c66003270d7feb6d9bac4bff4c9a3a6d1b9c06c0ea617703f2e962dfaa8b7f4f"> <link rel="icon"
+    type="image/png" sizes="16x16" href="https://www.owenyoung.com/site/images/favicon-16x16.png?h=781fb877b71ebad12e3c244f99d49e304999806e16b5d300aad21c5cf745eaaa"> <link rel="manifest"
+    href="https://www.owenyoung.com/site/images/manifest.json">
+    <meta
+      name="msapplication-TileColor"
+      content="#EA4C89"
+    />
+    <meta name="msapplication-TileImage" content="https://www.owenyoung.com/site/images/ms-icon-144x144.png?h=3f1d58f726fa497889b5fbb0d6f3ed6035b1bf7a566d22483a2d64c26dd23363">
+    <meta name="theme-color" content="#EA4C89" />
+
+    <meta
+      property="og:title"
+      content="Gatsby框架的缺点 - Owen的博客"
+    />
+    <meta
+      property="og:description"
+      content=" Gatsby.js是一个基于 React 生成静态网站的工具链，也称为静态网站生成器(SSG), 旨在让开发人员使用基于 React 的框架和基于 Gaphql 的数据层去构建快速、安全且功能强大的网站，从而将不同的内容、API 和服务生成一个体验良好的静态网站。
+  "
+    />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;www.owenyoung.com&#x2F;blog&#x2F;gatsby-cons&#x2F;"
+    />
+    <meta property="og:site_name" content="Owen的博客" />
+    
+    <meta
+      property="og:image"
+      content=""
+    />
+    
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:site" content="TheOwenYoung" />
+    <meta name="twitter:creator" content="TheOwenYoung" />
+    <meta
+      name="twitter:image:alt"
+      content="Owen的博客"
+    />
+    
+     <link rel="alternate"
+type="application/atom+xml" title="Owen的博客 - RSS" href="https://www.owenyoung.com/atom.xml">
+
+    
+    <meta name="title" content="Gatsby框架的缺点">
+<style>
+  .sidebar{
+    display: none;
+  }
+  @media (min-width: 67.5rem) {
+    .sidebar{
+      display: block;
+    }
+  }
+</style>
+
+  </head>
+
+  <body>
+    <section id="top"></section>
+    <section id="root" >
+      <nav class="navbar">
+        <div class="navbar-inner justify-between">
+          <div>
+            <a class="brand" href="https://www.owenyoung.com/">
+              <img class="icon" alt="Owen" src="https://www.owenyoung.com/site/images/favicon-96x96.png?h=c66003270d7feb6d9bac4bff4c9a3a6d1b9c06c0ea617703f2e962dfaa8b7f4f"></img>
+            </a> 
+          </div>
+          <div>
+            
+            <ul class="flex menu list-none items-center justify-center">
+              <li><a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline " title="English Site" href="/en/">
+                <span class="text-sm">EN</span>
+               </a></li>
+              <li>
+               <a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline muted" title="中文站点" class="only-show-small" href="/">
+                 <span class="text-sm">中</span>
+                </a>
+              </li>
+             <div class="nav-divider"></div>
+             <li><a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline" title="Back to Top" href="#top">
+               <span class=""> &#8593;</span>
+              </a></li>
+             <li>
+              <a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline" title="Go to Bottom" class="only-show-small" href="#bottom">
+                <span class=""> &#8595;</span>
+               </a>
+             </li>
+            
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <main class="body-zone flex justify-between flex-1">
+          <section class="main flex-1">
+            <div class="main-inner px">
+              
+<div class="h-entry hentry">
+  <header id="overview">
+  
+    <div class="pt">
+      <span>&gt;&gt;</span>
+      <a href="https://www.owenyoung.com/">首页</a>
+      
+      <span class="divider">/</span>
+      <a rel="category tag" class="p-category category" href="https://www.owenyoung.com/categories/random/">Random</a>
+      <span class="divider">/</span>
+      
+      <a href="https://www.owenyoung.com/tags/javascript/">Javascript</a>,
+      
+      <a href="https://www.owenyoung.com/tags/gastby/">Gastby</a>
+      
+      
+      
+      </div>
+  
+    <div>
+      <h1 class="p-name entry-title" style="font-size:2rem;">Gatsby框架的缺点</h1>
+      <div class="display-none p-author h-card vcard">
+        <img class="u-photo icon" alt="Owen" src="https://www.owenyoung.com/site/images/favicon-96x96.png?h=c66003270d7feb6d9bac4bff4c9a3a6d1b9c06c0ea617703f2e962dfaa8b7f4f" />
+        <a class="p-name u-url url"
+        href="https:&#x2F;&#x2F;www.owenyoung.com" 
+       >Owen Young</a> 
+       <p class="p-note">Web developer, I like reading and explore the internet, so I have collected queit a few notes in my blog.</p>
+      </div>
+      <div class="pt muted">
+        <div>
+          发布于: <time class="dt-published published" datetime="2022-03-08">2022-03-08</time>, 最后更新时间: <time class="dt-updated updated" datetime="2022-03-10">2022-03-10</time>, 阅读时间: 5 min</div>
+    </div>
+
+    </div>
+    
+    
+  </header>
+  <section>
+  
+    <section class="main">
+      <div class="display-none p-summary">
+        <p><a rel="noopener nofollow noreferrer" target="_blank" href="https://www.gatsbyjs.com/">Gatsby.js</a>是一个基于 React 生成静态网站的工具链，也称为静态网站生成器(SSG), 旨在让开发人员使用基于 <a rel="noopener nofollow noreferrer" target="_blank" href="https://reactjs.org/">React</a> 的框架和基于 <a rel="noopener nofollow noreferrer" target="_blank" href="https://graphql.org/">Gaphql</a> 的数据层去构建快速、安全且功能强大的网站，从而将不同的内容、API 和服务生成一个体验良好的静态网站。</p>
+
+      </div>
+      <a class="display-none u-url" href="https:&#x2F;&#x2F;www.owenyoung.com&#x2F;blog&#x2F;gatsby-cons&#x2F;">Permanent Link</a>
+      
+      <section id="start"></section>
+      <article class="e-content entry-content">
+        <p><a rel="noopener nofollow noreferrer" target="_blank" href="https://www.gatsbyjs.com/">Gatsby.js</a>是一个基于 React 生成静态网站的工具链，也称为静态网站生成器(SSG), 旨在让开发人员使用基于 <a rel="noopener nofollow noreferrer" target="_blank" href="https://reactjs.org/">React</a> 的框架和基于 <a rel="noopener nofollow noreferrer" target="_blank" href="https://graphql.org/">Gaphql</a> 的数据层去构建快速、安全且功能强大的网站，从而将不同的内容、API 和服务生成一个体验良好的静态网站。</p>
+<span id="continue-reading"></span>
+<p>我第一眼看到它的时候就被它简单的思想和丰富的社区生态给吸引了。总体来讲，他是一切皆 source，source 生成一个 graphql 的 API，然后在 react 组件里按需使用 graphql 的数据以生成对应的页面。</p>
+<p>目前我的 <a rel="noopener nofollow noreferrer" target="_blank" href="https://wiki.owenyoung.com/">Wiki</a>, <a rel="noopener nofollow noreferrer" target="_blank" href="https://blog.owenyoung.com/">Blog</a>, 包括 <a rel="noopener nofollow noreferrer" target="_blank" href="https://www.buzzing.cc/">Buzzing</a>里面的所有子攒点, <a rel="noopener nofollow noreferrer" target="_blank" href="https://www.trackawesomelist.com/">Track Awesome List</a>，其实都是用 Gatsby 构建的。</p>
+<p>随着内容越来越多，以及 Gatsby 的升级，我发现在维护 Gatsby 的时候开始有点不喜欢它了。这主要是由于：</p>
+<ol>
+<li>Gatsby 的大多数功能都是通过插件提供，导致项目有大量的第三方依赖（也有很多是官方维护的插件），而 Nodejs 的<code>package-lock.json</code>总是在升级的时候搞错一些版本，让我很抓狂（我不确定这个问题有没有得到解决），对于多依赖项目，我经常需要删掉整个 lock 文件，然后重新生成新的 lock 索引。</li>
+<li>大量的第三方插件维护的质量参差不齐，维护不足。这其实很正常，我自己也维护了一个<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/theowenyoung/gatsby-plugin-intl">国际化翻译的 Gatsby 插件</a>, 但是由于后面我自己都没在用了，所以我就失去了继续维护和更新的动力了，至今还有用户在提 Issue，我只能在 Readme 里面写这个项目已经不在维护了。</li>
+<li>Gatsby 目前还不支持<code>.mjs</code>,然而 gatsby 强依赖的<a rel="noopener nofollow noreferrer" target="_blank" href="https://github.com/syntax-tree/unist">unist</a>全生态系统都拥抱了<code>.mjs</code>,所以导致大量的 gatsby 第三方插件只能使用旧版的 unist 生态链。升级的时候会有很多依赖只能依赖旧版本。这导致了很多的混乱。</li>
+<li>Gatsby 的底层设计导致多内容处理的性能问题。Gatsby 把所有的内容都加载到 graphql 的内存数据里，这导致了庞大的开销。在内容很多的时候，比如<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.trackawesomelist.com/">Track Awesome List</a>，每次构建需要 40 分钟左右的时间，好在这个网站每天只需要更新 2 次。</li>
+<li>Gatsby 虽然思想简单，但是其 API 现在已经变得非常庞大和复杂了，有点类似 Webpack，一个东西只要变得如此复杂，那么后期维护一定会很痛苦。与之相对的是<a rel="noopener nofollow noreferrer" target="_blank" href="https://www.11ty.dev/">11ty</a>的 API 就很简单，但是也很强大。</li>
+</ol>
+<p>最后，来体会一下我的项目中 Gatsby 的依赖：</p>
+<pre data-lang="json" style="background-color:#2b303b;color:#c0c5ce;" class="language-json "><code class="language-json" data-lang="json"><span>{
+</span><span>  &quot;</span><span style="color:#a3be8c;">@emotion/react</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^11.7.1</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">@emotion/styled</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^11.6.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">@mdx-js/mdx</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^1.6.22</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">@mdx-js/react</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^1.6.22</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">@theme-ui/prism</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^0.13.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">date-fns</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^2.28.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">disqus-react</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^1.1.2</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-core-utils</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^3.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-plugin-emotion</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^7.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-plugin-feed</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^4.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-plugin-hn</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^1.0.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-plugin-image</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^2.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-plugin-instagram</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^1.0.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-plugin-mdx</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^3.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-plugin-react-helmet</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^5.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-plugin-sharp</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^4.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-plugin-theme-ui</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^0.13.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-plugin-twitter</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^4.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-remark-copy-linked-files</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^5.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-remark-images</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^6.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-remark-smartypants</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^5.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-theme-i18n</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^3.0.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-theme-ui-preset</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^3.0.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-theme-ui-timeline-preset</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^3.0.1</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-transformer-json</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^4.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">gatsby-transformer-sharp</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^4.4.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">html-to-text</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^8.1.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">mdx-utils</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^0.2.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">path-browserify</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^1.0.1</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">react-helmet</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^6.1.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">react-player</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^2.9.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">react-process-string</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^1.2.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">react-twemoji</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^0.3.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">react-ultimate-pagination</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^1.2.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">remark-slug</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^5.1.2</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">theme-ui</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^0.13.0</span><span>&quot;,
+</span><span>  &quot;</span><span style="color:#a3be8c;">url-join</span><span>&quot;: &quot;</span><span style="color:#a3be8c;">^4.0.1</span><span>&quot;
+</span><span>}
+</span></code></pre>
+
+      </article>
+      
+      <section>
+        <hr>
+        <a class="muted" href="https://github.com/theowenyoung/blog/tree/main/content/blog/gatsby-cons.md">📝 帮我完善这个页面？</a>
+      </section>
+      
+  
+      
+      
+      
+      <section class="p-comments h-feed">
+      <hr>
+      <h2>回应区<a href="#response" id="response" class="zola-anchor" >🔗</a></h2>
+      <form class="webmention-form" action="https://webmention.io/www.owenyoung.com/webmention" method="post">
+        
+        <div id="email-comment" class="muted text-sm">
+          
+          <p>
+            你有对这篇文章写<a href="https://indieweb.org/responses">回应</a>吗? 你可以在这里提交你的文章网址，或者你也可以通过<a href="mailto:owen@owenyoung.com?subject=%E5%9B%9E%E5%A4%8D%EF%BC%9AGatsby%E6%A1%86%E6%9E%B6%E7%9A%84%E7%BC%BA%E7%82%B9">邮件  </a><code>owen@owenyoung.com</code> 和我讨论。
+          </p>
+          
+        
+        </div>
+        
+        <div class="flex items-center flex-wrap pb">
+          <input type="url" name="source" class="flex-3 mr-sm w-full py-sm px-sm">
+          <input type="submit" class="px py-sm" value="Send Webmention">
+        </div>
+        <div class="status hidden">
+          <div class="ui message"></div>
+        </div>
+        <input type="hidden" name="target" value="https:&#x2F;&#x2F;www.owenyoung.com&#x2F;blog&#x2F;gatsby-cons&#x2F;">
+      </form>
+        
+      </section>
+      
+      
+
+    </section>
+    
+   
+  </section>
+</div>
+   
+
+              </div>
+          </section>
+
+          
+<aside class="sidebar px no-toc">
+
+</aside>
+
+
+
+      </main>
+      </section>
+    <section id="bottom"></section>
+  </body>
+</html>
