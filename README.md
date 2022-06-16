@@ -1,4 +1,4 @@
-# Owen's Blog
+# Max's Blog
 
 The blog is built with [Zola](https://www.getzola.org/), for my personal need, I've use [my forked version](https://github.com/theowenyoung/zola) to build it.
 

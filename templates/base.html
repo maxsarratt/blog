@@ -137,40 +137,21 @@ type="application/atom+xml" title="{{ config.title }} - RSS" href="{{ get_url(pa
   </head>
 
   <body>
-    <section id="top"></section>
-    <section id="root" >
-      <nav class="navbar">
-        <div class="navbar-inner justify-between">
-          <div>
-            <a class="brand" href="{{ config.base_url~lang_prefix_path }}">
-              <img class="icon" alt="Owen" src="{{ get_url(path="site/images/favicon-96x96.png",cachebust=true) }}"></img>
-            </a> 
-          </div>
-          <div>
-            
-            <ul class="flex menu list-none items-center justify-center">
-              <li><a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline {% if lang=='en' -%}muted{% endif -%}" title="English Site" href="/en/">
-                <span class="text-sm">EN</span>
-               </a></li>
-              <li>
-               <a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline {% if lang=='zh' -%}muted{% endif -%}" title="中文站点" class="only-show-small" href="/">
-                 <span class="text-sm">中</span>
-                </a>
-              </li>
-             <div class="nav-divider"></div>
-             <li><a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline" title="Back to Top" href="#top">
-               <span class=""> &#8593;</span>
-              </a></li>
-             <li>
-              <a class="flex border-muted rounded-full justify-center items-center icon no-underline no-hover-underline" title="Go to Bottom" class="only-show-small" href="#bottom">
-                <span class=""> &#8595;</span>
-               </a>
-             </li>
-            
-            </ul>
-          </div>
+    <section id="top">
+      <nav class="navbar-top">
+        <div>
+          <a class="navbar-a" href="/">
+            <div class="navbar-name">Max's Blog</div>
+          </a> 
+        </div>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        <div class="justify-between">
+          <a class="no-underline" href="/blog/">Articles</a>&nbsp;
         </div>
       </nav>
+    </section>
+
+    <section id="root" >
       {% block body_zone -%}
       <main class="body-zone flex justify-between flex-1">
           <section class="main flex-1">

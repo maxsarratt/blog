@@ -79,9 +79,8 @@ html {
 }
 
 body {
-  font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua",
-    Georgia, "SF Pro SC", "SF Pro Text", "SF Pro Icons", "PingFang SC",
-    "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-family: Menlo, "PT Mono", "Arial", "Helvetica", "Helvetica Neue",
+    "Noto Sans TC", "PingFang TC", "PingFang SC", sans-serif, Georgia;
   color: var(--color-text);
   background-color: var(--colors-background);
 }
@@ -89,6 +88,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   max-width: 120rem;
+  padding-top: 60px;
 }
 h1,
 h2,
@@ -511,3 +511,42 @@ li.inline {
     border: none;
   }
 }
+
+/* Navbar */
+.nvabar-name {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 24px;
+  padding-left: 8px;
+  position: relative;
+  top: -1.5px;
+  vertical-align: middle;
+  color: #5f6368;
+  white-space: nowrap;
+}
+.navbar-top {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  height: 52px;
+  width: calc(100% - 16px);
+  padding: 1rem;
+  align-items: center;
+  border-bottom: 3px solid #e9edf0;
+  color: #5f6368;
+  z-index: 1100;
+  background-color: #f2f2f2;
+}
+.navbar-a {
+  display: flex;
+  align-items: center;
+  color: #003c6d;
+  text-decoration: none;
+  padding-left: 12px;
+}
+
+/* Remove the Underline from Links */
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }

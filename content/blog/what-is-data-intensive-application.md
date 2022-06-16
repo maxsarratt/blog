@@ -16,6 +16,8 @@ FB 目前的 DAU 為 1 billion，如果每個用戶平均一天發佈 0.5 個留
 
 當今軟體公司主要面臨的問題是數據相關問題也是就是「數據量、數據的複雜性、以及數據的變更速度」。理解如何建立數據密集型系統是成為高級軟體工程師的必備知識
 
+<!-- more -->
+
 # References
 
 [1] Martin Kleppmann: [ddia/ch1.md at master · Vonng/ddia](https://github.com/Vonng/ddia/blob/master/ch1.md?fbclid=IwAR2PNRnpakVo2kU2glP7AZNH5ycgJbsysfMXl4LEzzBbBRAUXBXwqjBmM0-U)
