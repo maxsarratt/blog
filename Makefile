@@ -8,6 +8,7 @@ serve:
 build:
 	zola build
 
+# backup commits the changes and push to the github.
 backup:
 	git add .
 	git commit -m "blog backup: $(CURRENT_TIME)"
