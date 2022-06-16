@@ -48,13 +48,13 @@ bio = "Web developer, I like reading and explore the internet, so I have collect
 
 ### SOCIAL MEDIA
 edit_url_prefix = "https://github.com/theowenyoung/blog/tree/main/content/"
-github_user = "theowenyoung"
+github_user = "maxsarratt"
 image = "https://www.owenyoung.com/logo.png"
 "label_action_in-reply-to" = "replied"
 "label_action_mention-of" = "mentioned"
 "label_action_reply-to" = "replied"
 "label_action_rsvp" = "answered"
-twitter_user = "TheOwenYoung"
+twitter_user = ""
 webmention_path = "webmentions"
 ### I18N WORDS
 
