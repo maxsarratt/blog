@@ -30,8 +30,7 @@ updated: 2022-04-04
 
 ## 社交媒体
 
-- [Twitter](https://twitter.com/OwenYoungZh)
-- [Github](https://github.com/theowenyoung)
+- [Github](https://github.com/maxsarratt)
 
 ## 存档
 
