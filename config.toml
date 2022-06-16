@@ -9,7 +9,7 @@ taxonomies = [
   {name = "tags", feed = true, paginate_by = 20, lang = "zh"},
   {name = "categories", feed = true, paginate_by = 20, lang = "zh"},
 ]
-title = "Owen Young's Blog"
+title = "Max's Blog"
 
 [markdown]
 # When set to "true", all code blocks are highlighted.
@@ -36,8 +36,8 @@ include_path = true
 include_content = false
 
 [extra]
-author = "Owen Young"
-email = "owen@owenyoung.com"
+author = "Max"
+email = "maxsarratt@gmail.com"
 theme_color = "#EA4C89"
 
 ### indieweb note
