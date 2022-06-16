@@ -1,7 +1,10 @@
 ---
 title: What is data-intensive application?
 date: 2022-06-13T00:00:00+08:00
-updated: 2022-06-13
+updated: 2022-06-17
+taxonomies:
+  categories:
+    - System Design
 ---
 
 *觀點*
