@@ -535,6 +535,7 @@ li.inline {
   border-bottom: 3px solid #e9edf0;
   color: #5f6368;
   z-index: 1100;
+  background-color: #fcfcfc;
 }
 .navbar-a {
   display: flex;
